@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lumina Sky Citadel</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body class="is-loading scene-awakening">
+    <main class="site-shell">
+      <video class="background-video" id="heroVideo" autoplay muted loop playsinline>
+        <source src="assets/lumina-sky-castle.mp4" type="video/mp4">
+      </video>
+      <div class="video-tint" aria-hidden="true"></div>
+
+      <div class="loading-curtain" aria-hidden="true">
+        <span></span>
+      </div>
+
+      <nav class="topbar" aria-label="主导航">
+        <a class="brand" href="#" aria-label="Lumina 首页">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>Lumina</span>
+        </a>
+        <div class="nav-links" aria-label="页面分区">
+          <a href="#realm">Realm</a>
+          <a href="#flight">Flight</a>
+          <a href="#sigils">Sigils</a>
+        </div>
+        <button class="icon-button" id="soundToggle" type="button" aria-label="切换声音" title="切换声音">
+          <svg class="icon-sound-on" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M11 5 6 9H3v6h3l5 4V5Z"></path>
+            <path d="M16 9.5a4 4 0 0 1 0 5"></path>
+            <path d="M19 7a8 8 0 0 1 0 10"></path>
+          </svg>
+          <svg class="icon-sound-off" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M11 5 6 9H3v6h3l5 4V5Z"></path>
+            <path d="m17 9 4 4"></path>
+            <path d="m21 9-4 4"></path>
+          </svg>
+        </button>
+      </nav>
+
+      <section class="hero" id="realm" aria-labelledby="heroTitle">
+        <div class="hero-copy">
+          <p class="eyebrow" id="sceneKicker">Cloudborne Interface</p>
+          <h1 id="heroTitle">Lumina Sky Citadel</h1>
+          <p class="lead" id="sceneLead">在白龙掠过云海的瞬间，打开一座漂浮城堡的序章。</p>
+          <div class="hero-actions">
+            <a class="primary-action" href="#flight">
+              <span>进入云桥</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 12h14"></path>
+                <path d="m13 6 6 6-6 6"></path>
+              </svg>
+            </a>
+            <button class="secondary-action" id="pauseToggle" type="button">
+              <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 5v14"></path>
+                <path d="M16 5v14"></path>
+              </svg>
+              <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m8 5 11 7-11 7V5Z"></path>
+              </svg>
+              <span>暂停</span>
+            </button>
+          </div>
+          <div class="time-rail" aria-label="视频进度">
+            <span class="time-fill" id="timeFill"></span>
+            <span class="time-cue" id="timeCue">Awakening</span>
+          </div>
+        </div>
+
+        <aside class="scene-panel" aria-label="场景信息">
+          <div class="panel-orbit" aria-hidden="true">
+            <span></span>
+            <span></span>
+          </div>
+          <p class="panel-label">Active Scene</p>
+          <h2 id="sceneTitle">Celestial Bridge</h2>
+          <dl>
+            <div>
+              <dt>Altitude</dt>
+              <dd id="sceneAltitude">9,860m</dd>
+            </div>
+            <div>
+              <dt>Dragon Pass</dt>
+              <dd id="scenePass">Northwest</dd>
+            </div>
+            <div>
+              <dt>Light</dt>
+              <dd id="sceneLight">Golden Hour</dd>
+            </div>
+          </dl>
+        </aside>
+      </section>
+
+      <section class="experience-band" id="flight" aria-labelledby="flightTitle">
+        <div class="band-heading">
+          <p class="eyebrow">Flight Path</p>
+          <h2 id="flightTitle">沿着云桥规划首屏动线</h2>
+        </div>
+        <div class="route-grid">
+          <article class="route-card is-active" data-cue="awakening">
+            <span>01</span>
+            <h3>Dragon Wake</h3>
+            <p>白龙进入画面时，标题和场景面板微亮，让用户的视线顺着云层自然移动。</p>
+          </article>
+          <article class="route-card" data-cue="citadel">
+            <span>02</span>
+            <h3>Sunlit Citadel</h3>
+            <p>城堡与日光最强的阶段，按钮保持冷白玻璃质感，避免和视频抢高光。</p>
+          </article>
+          <article class="route-card" data-cue="descent">
+            <span>03</span>
+            <h3>Cloud Descent</h3>
+            <p>云海下沉时，内容区从下一屏浮上来，形成连续的空间叙事。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="sigil-strip" id="sigils" aria-label="视觉关键词">
+        <span>White Dragon</span>
+        <span>Sky Castle</span>
+        <span>Cloud Bridge</span>
+        <span>Solar Veil</span>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
