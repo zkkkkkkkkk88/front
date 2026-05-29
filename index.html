@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>光之天空城</title>
+    <title>神迹天空城</title>
     <link rel="stylesheet" href="styles.css">
   </head>
   <body class="is-loading scene-awakening">
@@ -18,15 +18,31 @@
       </div>
 
       <nav class="topbar" aria-label="主导航">
-        <a class="brand" href="#" aria-label="光之 首页">
+        <a class="brand" href="#" aria-label="神迹 首页">
           <span class="brand-mark" aria-hidden="true"></span>
-          <span>光之</span>
+          <span>神迹</span>
         </a>
         <div class="nav-links" aria-label="页面分区">
           <a href="#realm">幻境</a>
           <a href="#flight">航线</a>
           <a href="#sigils">印记</a>
         </div>
+        <button class="icon-button" id="themeToggle" type="button" aria-label="切换昼夜模式" title="切换昼夜模式">
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"></circle>
+            <path d="M12 1v2"></path>
+            <path d="M12 21v2"></path>
+            <path d="M4.22 4.22l1.42 1.42"></path>
+            <path d="M18.36 18.36l1.42 1.42"></path>
+            <path d="M1 12h2"></path>
+            <path d="M21 12h2"></path>
+            <path d="M4.22 19.78l1.42-1.42"></path>
+            <path d="M18.36 5.64l1.42-1.42"></path>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
         <button class="icon-button" id="soundToggle" type="button" aria-label="切换声音" title="切换声音">
           <svg class="icon-sound-on" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M11 5 6 9H3v6h3l5 4V5Z"></path>
@@ -44,7 +60,7 @@
       <section class="hero" id="realm" aria-labelledby="heroTitle">
         <div class="hero-copy">
           <p class="eyebrow" id="sceneKicker">云上之境</p>
-          <h1 id="heroTitle">光之天空城</h1>
+          <h1 id="heroTitle">神迹天空城</h1>
           <p class="lead" id="sceneLead">白龙掠过云海的瞬间，打开一座漂浮城堡的序章。</p>
           <div class="hero-actions">
             <a class="primary-action" href="#flight">

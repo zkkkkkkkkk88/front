@@ -166,5 +166,24 @@ video.addEventListener("pause", syncVideoState);
 video.addEventListener("volumechange", syncVideoState);
 window.setTimeout(setReady, 1800);
 
+const themeToggle = document.querySelector("#themeToggle");
+
+function applyTheme(theme) {
+  document.body.classList.toggle("theme-night", theme === "night");
+  themeToggle.setAttribute("aria-label", theme === "night" ? "切换日间模式" : "切换夜间模式");
+  themeToggle.setAttribute("title", theme === "night" ? "切换日间模式" : "切换夜间模式");
+}
+
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme) {
+  applyTheme(savedTheme);
+}
+
+themeToggle.addEventListener("click", () => {
+  const next = document.body.classList.contains("theme-night") ? "day" : "night";
+  localStorage.setItem("theme", next);
+  applyTheme(next);
+});
+
 applyCue(sceneCues[0]);
 tryPlay();
