@@ -548,8 +548,10 @@ dd {
 
 /* 昼夜切换按钮容器 */
 .theme-control {
-  position: relative;
-  justify-self: end;
+  position: fixed;
+  top: 1rem;
+  right: clamp(1rem, 5vw, 3.5rem);
+  z-index: 30;
 }
 
 .theme-control .icon-button {
