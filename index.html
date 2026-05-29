@@ -29,42 +29,44 @@
           <a href="#flight">航线</a>
           <a href="#sigils">印记</a>
         </div>
-        <button class="icon-button" id="soundToggle" type="button" aria-label="切换声音" title="切换声音">
-          <svg class="icon-sound-on" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M11 5 6 9H3v6h3l5 4V5Z"></path>
-            <path d="M16 9.5a4 4 0 0 1 0 5"></path>
-            <path d="M19 7a8 8 0 0 1 0 10"></path>
-          </svg>
-          <svg class="icon-sound-off" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M11 5 6 9H3v6h3l5 4V5Z"></path>
-            <path d="m17 9 4 4"></path>
-            <path d="m21 9-4 4"></path>
-          </svg>
-        </button>
-        <div class="theme-control">
-          <button class="icon-button" id="themeToggle" type="button" aria-label="切换昼夜模式" title="切换昼夜模式">
-            <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
-              <circle cx="12" cy="12" r="5"></circle>
-              <path d="M12 1v2"></path>
-              <path d="M12 21v2"></path>
-              <path d="M4.22 4.22l1.42 1.42"></path>
-              <path d="M18.36 18.36l1.42 1.42"></path>
-              <path d="M1 12h2"></path>
-              <path d="M21 12h2"></path>
-              <path d="M4.22 19.78l1.42-1.42"></path>
-              <path d="M18.36 5.64l1.42-1.42"></path>
+        <div class="topbar-actions">
+          <button class="icon-button" id="soundToggle" type="button" aria-label="切换声音" title="切换声音">
+            <svg class="icon-sound-on" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M11 5 6 9H3v6h3l5 4V5Z"></path>
+              <path d="M16 9.5a4 4 0 0 1 0 5"></path>
+              <path d="M19 7a8 8 0 0 1 0 10"></path>
             </svg>
-            <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            <svg class="icon-sound-off" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M11 5 6 9H3v6h3l5 4V5Z"></path>
+              <path d="m17 9 4 4"></path>
+              <path d="m21 9-4 4"></path>
             </svg>
           </button>
-          <div class="dim-panel" id="dimPanel">
-            <div class="dim-track" id="dimTrack">
-              <div class="dim-fill" id="dimFill"></div>
-              <div class="dim-thumb" id="dimThumb"></div>
+          <div class="theme-control">
+            <button class="icon-button" id="themeToggle" type="button" aria-label="切换昼夜模式" title="切换昼夜模式">
+              <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="5"></circle>
+                <path d="M12 1v2"></path>
+                <path d="M12 21v2"></path>
+                <path d="M4.22 4.22l1.42 1.42"></path>
+                <path d="M18.36 18.36l1.42 1.42"></path>
+                <path d="M1 12h2"></path>
+                <path d="M21 12h2"></path>
+                <path d="M4.22 19.78l1.42-1.42"></path>
+                <path d="M18.36 5.64l1.42-1.42"></path>
+              </svg>
+              <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+            </button>
+            <div class="dim-panel" id="dimPanel">
+              <div class="dim-track" id="dimTrack">
+                <div class="dim-fill" id="dimFill"></div>
+                <div class="dim-thumb" id="dimThumb"></div>
             </div>
             <span class="dim-label" id="dimLabel">暗度 0</span>
           </div>
+        </div>
         </div>
       </nav>
 
