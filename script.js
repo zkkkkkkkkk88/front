@@ -161,24 +161,140 @@ video.addEventListener("pause", syncVideoState);
 video.addEventListener("volumechange", syncVideoState);
 window.setTimeout(setReady, 1800);
 
+/* ========== 暗度控制 ========== */
+
 const themeToggle = document.querySelector("#themeToggle");
+const themeControl = document.querySelector(".theme-control");
+const dimPanel = document.querySelector("#dimPanel");
+const dimTrack = document.querySelector("#dimTrack");
+const dimFill = document.querySelector("#dimFill");
+const dimThumb = document.querySelector("#dimThumb");
+const dimLabel = document.querySelector("#dimLabel");
+const videoDarken = document.querySelector(".video-darken");
+const dragonGlow = document.querySelector(".dragon-glow");
 
-function applyTheme(theme) {
-  document.body.classList.toggle("theme-night", theme === "night");
-  themeToggle.setAttribute("aria-label", theme === "night" ? "切换日间模式" : "切换夜间模式");
-  themeToggle.setAttribute("title", theme === "night" ? "切换日间模式" : "切换夜间模式");
+// 颜色定义 [r, g, b]
+const colorDefs = {
+  ink:        [[255, 248, 235], [168, 210, 235]],
+  muted:      [[255, 248, 235], [180, 210, 235]],
+  soft:       [[255, 248, 235], [180, 210, 235]],
+  line:       [[255, 248, 235], [170, 210, 232]],
+  glass:      [[24, 31, 38],   [6, 14, 30]],
+  gold:       [[255, 217, 138], [88, 165, 218]],
+  aqua:       [[183, 241, 255], [110, 185, 225]],
+  rose:       [[243, 173, 192], [120, 160, 210]],
+  shadow:     [[0, 0, 0],      [0, 10, 30]],
+  bodyBg:     [[17, 24, 32],   [3, 10, 22]],
+};
+
+function lerp(a, b, t) {
+  return a + (b - a) * t;
 }
 
-const savedTheme = localStorage.getItem("theme");
-if (savedTheme) {
-  applyTheme(savedTheme);
+function lerpColor(day, night, t) {
+  const r = Math.round(lerp(day[0], night[0], t));
+  const g = Math.round(lerp(day[1], night[1], t));
+  const b = Math.round(lerp(day[2], night[2], t));
+  return `${r}, ${g}, ${b}`;
 }
 
-themeToggle.addEventListener("click", () => {
-  const next = document.body.classList.contains("theme-night") ? "day" : "night";
-  localStorage.setItem("theme", next);
-  applyTheme(next);
+function applyDim(value) {
+  const t = value / 100;
+  const root = document.documentElement;
+
+  // 插值颜色变量
+  root.style.setProperty("--ink", `rgb(${lerpColor(colorDefs.ink[0], colorDefs.ink[1], t)})`);
+  root.style.setProperty("--muted", `rgba(${lerpColor(colorDefs.muted[0], colorDefs.muted[1], t)}, ${lerp(0.72, 0.58, t).toFixed(2)})`);
+  root.style.setProperty("--soft", `rgba(${lerpColor(colorDefs.soft[0], colorDefs.soft[1], t)}, ${lerp(0.12, 0.07, t).toFixed(2)})`);
+  root.style.setProperty("--line", `rgba(${lerpColor(colorDefs.line[0], colorDefs.line[1], t)}, ${lerp(0.24, 0.14, t).toFixed(2)})`);
+  root.style.setProperty("--glass", `rgba(${lerpColor(colorDefs.glass[0], colorDefs.glass[1], t)}, ${lerp(0.42, 0.58, t).toFixed(2)})`);
+  root.style.setProperty("--glass-strong", `rgba(${lerpColor(colorDefs.glass[0], colorDefs.glass[1], t)}, ${lerp(0.62, 0.78, t).toFixed(2)})`);
+  root.style.setProperty("--gold", `rgb(${lerpColor(colorDefs.gold[0], colorDefs.gold[1], t)})`);
+  root.style.setProperty("--aqua", `rgb(${lerpColor(colorDefs.aqua[0], colorDefs.aqua[1], t)})`);
+  root.style.setProperty("--rose", `rgb(${lerpColor(colorDefs.rose[0], colorDefs.rose[1], t)})`);
+  root.style.setProperty("--shadow", `0 28px 90px rgba(${lerpColor(colorDefs.shadow[0], colorDefs.shadow[1], t)}, ${lerp(0.42, 0.58, t).toFixed(2)})`);
+  root.style.setProperty("--body-bg", `rgb(${lerpColor(colorDefs.bodyBg[0], colorDefs.bodyBg[1], t)})`);
+
+  // 场景变暗
+  const darkAlpha = (t * 0.55).toFixed(3);
+  videoDarken.style.background = `rgba(2, 8, 24, ${darkAlpha})`;
+
+  // 龙影光晕 - 与暗度反向
+  const glowAlpha = (t * 0.85).toFixed(3);
+  dragonGlow.style.opacity = glowAlpha;
+
+  // 刻度 UI 更新
+  dimFill.style.height = `${value}%`;
+  dimThumb.style.bottom = `${value}%`;
+  dimLabel.textContent = `暗度 ${Math.round(value)}`;
+
+  // 图标切换
+  themeControl.classList.toggle("is-dimmed", value > 10);
+
+  // 存储
+  localStorage.setItem("dim", value);
+}
+
+// 面板开关
+themeToggle.addEventListener("click", (e) => {
+  e.stopPropagation();
+  dimPanel.classList.toggle("is-open");
 });
+
+// 点击外部关闭
+document.addEventListener("click", (e) => {
+  if (!themeControl.contains(e.target)) {
+    dimPanel.classList.remove("is-open");
+  }
+});
+
+// 拖拽交互
+let isDragging = false;
+
+function dimFromEvent(e) {
+  const rect = dimTrack.getBoundingClientRect();
+  const y = e.touches ? e.touches[0].clientY : e.clientY;
+  const ratio = 1 - (y - rect.top) / rect.height;
+  return Math.round(Math.min(100, Math.max(0, ratio * 100)));
+}
+
+dimTrack.addEventListener("mousedown", (e) => {
+  isDragging = true;
+  applyDim(dimFromEvent(e));
+});
+
+dimThumb.addEventListener("mousedown", (e) => {
+  isDragging = true;
+  e.stopPropagation();
+});
+
+window.addEventListener("mousemove", (e) => {
+  if (!isDragging) return;
+  applyDim(dimFromEvent(e));
+});
+
+window.addEventListener("mouseup", () => {
+  isDragging = false;
+});
+
+// 触摸支持
+dimTrack.addEventListener("touchstart", (e) => {
+  isDragging = true;
+  applyDim(dimFromEvent(e));
+}, { passive: true });
+
+window.addEventListener("touchmove", (e) => {
+  if (!isDragging) return;
+  applyDim(dimFromEvent(e));
+}, { passive: true });
+
+window.addEventListener("touchend", () => {
+  isDragging = false;
+});
+
+// 初始化
+const savedDim = localStorage.getItem("dim");
+applyDim(savedDim !== null ? Number(savedDim) : 0);
 
 applyCue(sceneCues[0]);
 tryPlay();

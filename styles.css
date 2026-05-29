@@ -11,21 +11,8 @@
   --rose: #f3adc0;
   --shadow: 0 28px 90px rgba(0, 0, 0, 0.42);
   --body-bg: #111820;
+  --dim: 0;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
-body.theme-night {
-  --ink: #c8ddf0;
-  --muted: rgba(200, 221, 240, 0.62);
-  --soft: rgba(200, 221, 240, 0.08);
-  --line: rgba(200, 221, 240, 0.16);
-  --glass: rgba(8, 16, 32, 0.55);
-  --glass-strong: rgba(6, 12, 28, 0.75);
-  --gold: #6cb4e0;
-  --aqua: #82c8e8;
-  --rose: #88aed8;
-  --shadow: 0 28px 90px rgba(0, 12, 36, 0.62);
-  --body-bg: #060e1c;
 }
 
 * {
@@ -98,12 +85,6 @@ svg {
   transition: opacity 600ms ease, background 600ms ease;
 }
 
-body.theme-night .video-tint {
-  background:
-    linear-gradient(90deg, rgba(2, 8, 24, 0.58) 0%, rgba(4, 12, 28, 0.36) 42%, rgba(100, 160, 210, 0.08) 100%),
-    linear-gradient(180deg, rgba(2, 8, 24, 0.20) 0%, rgba(2, 8, 24, 0.06) 52%, rgba(2, 8, 24, 0.42) 100%);
-}
-
 .loading-curtain {
   position: fixed;
   inset: 0;
@@ -174,11 +155,6 @@ body.is-ready .loading-curtain {
   background: radial-gradient(circle, var(--aqua) 0 24%, var(--gold) 26% 52%, transparent 54%);
   box-shadow: 0 0 24px rgba(183, 241, 255, 0.78);
   transition: background 300ms ease, box-shadow 300ms ease;
-}
-
-body.theme-night .brand-mark {
-  background: radial-gradient(circle, var(--aqua) 0 24%, var(--gold) 26% 52%, transparent 54%);
-  box-shadow: 0 0 24px rgba(142, 202, 230, 0.78);
 }
 
 .nav-links {
@@ -398,13 +374,6 @@ h1 {
   transition: border-color 300ms ease, background 300ms ease, transform 140ms ease;
 }
 
-body.theme-night .scene-panel {
-  border-color: rgba(142, 202, 230, 0.35);
-  background:
-    linear-gradient(160deg, rgba(220, 232, 242, 0.14), rgba(220, 232, 242, 0.04)),
-    var(--glass-strong);
-}
-
 .scene-panel::before {
   content: "";
   position: absolute;
@@ -555,7 +524,17 @@ dd {
   backdrop-filter: blur(14px);
 }
 
-/* 昼夜切换 */
+/* 暗度视频覆盖层 */
+.video-darken {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background: rgba(2, 8, 24, 0);
+  transition: background 200ms ease;
+}
+
+/* 龙影光晕 */
 .dragon-glow {
   position: fixed;
   z-index: -1;
@@ -563,21 +542,97 @@ dd {
   pointer-events: none;
   opacity: 0;
   background:
-    radial-gradient(ellipse 700px 450px at 62% 42%, rgba(255, 217, 138, 0.22), transparent 60%),
-    radial-gradient(ellipse 350px 250px at 58% 44%, rgba(255, 240, 200, 0.15), transparent 55%);
-  transition: opacity 800ms ease;
+    radial-gradient(ellipse 700px 450px at 62% 42%, rgba(255, 217, 138, 0.28), transparent 60%),
+    radial-gradient(ellipse 350px 250px at 58% 44%, rgba(255, 240, 200, 0.20), transparent 55%);
 }
 
-body.theme-night .dragon-glow {
+/* 昼夜切换按钮容器 */
+.theme-control {
+  position: relative;
+  justify-self: end;
+}
+
+.theme-control .icon-button {
+  margin-right: 0.2rem;
+}
+
+/* 刻度面板 */
+.dim-panel {
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 0.75rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--glass-strong);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-0.4rem);
+  transition: opacity 280ms ease, visibility 280ms ease, transform 280ms ease;
+  z-index: 20;
+}
+
+.dim-panel.is-open {
   opacity: 1;
-  animation: glowPulse 4s ease-in-out infinite;
+  visibility: visible;
+  transform: translateY(0);
 }
 
-@keyframes glowPulse {
-  0%, 100% { opacity: 0.65; }
-  50% { opacity: 1; }
+.dim-track {
+  position: relative;
+  width: 2rem;
+  height: 130px;
+  border-radius: 999px;
+  background: rgba(255, 248, 235, 0.10);
+  border: 1px solid var(--line);
+  cursor: pointer;
+  touch-action: none;
 }
 
+.dim-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 999px;
+  background: linear-gradient(to top, var(--gold), rgba(255, 248, 235, 0.08));
+  transition: height 80ms ease;
+}
+
+.dim-thumb {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 12px rgba(255, 217, 138, 0.5);
+  cursor: grab;
+  transition: box-shadow 200ms ease;
+}
+
+.dim-thumb:active {
+  cursor: grabbing;
+  box-shadow: 0 0 20px rgba(255, 217, 138, 0.8);
+}
+
+.dim-label {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* 日/夜图标 */
 .icon-sun,
 .icon-moon {
   transition: transform 500ms ease, opacity 500ms ease;
@@ -587,45 +642,12 @@ body.theme-night .dragon-glow {
   display: none;
 }
 
-body.theme-night .icon-sun {
+.theme-control.is-dimmed .icon-sun {
   display: none;
 }
 
-body.theme-night .icon-moon {
+.theme-control.is-dimmed .icon-moon {
   display: block;
-}
-
-#themeToggle {
-  margin-right: 0.2rem;
-}
-
-/* 主题过渡 */
-.brand-mark,
-.brand-mark,
-.scene-panel,
-.route-card,
-.video-tint,
-.topbar,
-.brand,
-.nav-links,
-.icon-button,
-.primary-action,
-.secondary-action,
-.sigil-strip span,
-.time-fill {
-  transition: background 500ms ease, border-color 500ms ease, box-shadow 500ms ease;
-}
-
-.time-cue,
-.eyebrow,
-.panel-label,
-.lead,
-dt,
-dd,
-.route-card p,
-.nav-links a,
-.sigil-strip span {
-  transition: color 500ms ease;
 }
 
 @keyframes floatOrbit {
