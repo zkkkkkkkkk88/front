@@ -15,17 +15,17 @@
 }
 
 body.theme-night {
-  --ink: #dce8f2;
-  --muted: rgba(220, 232, 242, 0.68);
-  --soft: rgba(220, 232, 242, 0.10);
-  --line: rgba(220, 232, 242, 0.20);
-  --glass: rgba(14, 22, 40, 0.48);
-  --glass-strong: rgba(10, 18, 36, 0.68);
-  --gold: #8ecae6;
-  --aqua: #a3d5f0;
-  --rose: #a8c8f0;
-  --shadow: 0 28px 90px rgba(0, 20, 50, 0.52);
-  --body-bg: #0a1224;
+  --ink: #c8ddf0;
+  --muted: rgba(200, 221, 240, 0.62);
+  --soft: rgba(200, 221, 240, 0.08);
+  --line: rgba(200, 221, 240, 0.16);
+  --glass: rgba(8, 16, 32, 0.55);
+  --glass-strong: rgba(6, 12, 28, 0.75);
+  --gold: #6cb4e0;
+  --aqua: #82c8e8;
+  --rose: #88aed8;
+  --shadow: 0 28px 90px rgba(0, 12, 36, 0.62);
+  --body-bg: #060e1c;
 }
 
 * {
@@ -98,34 +98,10 @@ svg {
   transition: opacity 600ms ease, background 600ms ease;
 }
 
-body.scene-citadel .video-tint {
-  background:
-    linear-gradient(90deg, rgba(7, 13, 21, 0.34) 0%, rgba(10, 16, 23, 0.12) 44%, rgba(255, 214, 138, 0.03) 100%),
-    linear-gradient(180deg, rgba(7, 13, 21, 0.08) 0%, rgba(7, 13, 21, 0.02) 52%, rgba(7, 13, 21, 0.24) 100%);
-}
-
-body.scene-descent .video-tint {
-  background:
-    linear-gradient(90deg, rgba(7, 13, 21, 0.48) 0%, rgba(10, 16, 23, 0.24) 42%, rgba(255, 214, 138, 0.04) 100%),
-    linear-gradient(180deg, rgba(7, 13, 21, 0.16) 0%, rgba(7, 13, 21, 0.04) 52%, rgba(7, 13, 21, 0.36) 100%);
-}
-
 body.theme-night .video-tint {
   background:
-    linear-gradient(90deg, rgba(4, 12, 30, 0.44) 0%, rgba(8, 18, 36, 0.22) 42%, rgba(142, 202, 230, 0.05) 100%),
-    linear-gradient(180deg, rgba(4, 12, 30, 0.12) 0%, rgba(4, 12, 30, 0.04) 52%, rgba(4, 12, 30, 0.30) 100%);
-}
-
-body.theme-night.scene-citadel .video-tint {
-  background:
-    linear-gradient(90deg, rgba(4, 12, 30, 0.36) 0%, rgba(8, 18, 36, 0.14) 44%, rgba(142, 202, 230, 0.04) 100%),
-    linear-gradient(180deg, rgba(4, 12, 30, 0.08) 0%, rgba(4, 12, 30, 0.02) 52%, rgba(4, 12, 30, 0.26) 100%);
-}
-
-body.theme-night.scene-descent .video-tint {
-  background:
-    linear-gradient(90deg, rgba(4, 12, 30, 0.50) 0%, rgba(8, 18, 36, 0.26) 42%, rgba(142, 202, 230, 0.05) 100%),
-    linear-gradient(180deg, rgba(4, 12, 30, 0.18) 0%, rgba(4, 12, 30, 0.04) 52%, rgba(4, 12, 30, 0.38) 100%);
+    linear-gradient(90deg, rgba(2, 8, 24, 0.58) 0%, rgba(4, 12, 28, 0.36) 42%, rgba(100, 160, 210, 0.08) 100%),
+    linear-gradient(180deg, rgba(2, 8, 24, 0.20) 0%, rgba(2, 8, 24, 0.06) 52%, rgba(2, 8, 24, 0.42) 100%);
 }
 
 .loading-curtain {
@@ -200,19 +176,9 @@ body.is-ready .loading-curtain {
   transition: background 300ms ease, box-shadow 300ms ease;
 }
 
-body.scene-citadel .brand-mark {
-  background: radial-gradient(circle, #ffffff 0 20%, var(--gold) 22% 58%, transparent 60%);
-  box-shadow: 0 0 30px rgba(255, 217, 138, 0.86);
-}
-
 body.theme-night .brand-mark {
   background: radial-gradient(circle, var(--aqua) 0 24%, var(--gold) 26% 52%, transparent 54%);
   box-shadow: 0 0 24px rgba(142, 202, 230, 0.78);
-}
-
-body.theme-night.scene-citadel .brand-mark {
-  background: radial-gradient(circle, #ffffff 0 20%, var(--gold) 22% 58%, transparent 60%);
-  box-shadow: 0 0 30px rgba(142, 202, 230, 0.86);
 }
 
 .nav-links {
@@ -432,25 +398,11 @@ h1 {
   transition: border-color 300ms ease, background 300ms ease, transform 140ms ease;
 }
 
-body.scene-citadel .scene-panel {
-  border-color: rgba(255, 217, 138, 0.45);
-  background:
-    linear-gradient(160deg, rgba(255, 248, 235, 0.2), rgba(255, 248, 235, 0.06)),
-    rgba(34, 31, 28, 0.58);
-}
-
 body.theme-night .scene-panel {
   border-color: rgba(142, 202, 230, 0.35);
   background:
     linear-gradient(160deg, rgba(220, 232, 242, 0.14), rgba(220, 232, 242, 0.04)),
     var(--glass-strong);
-}
-
-body.theme-night.scene-citadel .scene-panel {
-  border-color: rgba(142, 202, 230, 0.45);
-  background:
-    linear-gradient(160deg, rgba(220, 232, 242, 0.18), rgba(220, 232, 242, 0.05)),
-    rgba(24, 28, 40, 0.58);
 }
 
 .scene-panel::before {
@@ -535,7 +487,7 @@ dd {
   min-height: 100svh;
   align-items: center;
   padding: clamp(4rem, 9vw, 7rem) clamp(1rem, 5vw, 5rem);
-  background: linear-gradient(180deg, rgba(7, 13, 21, 0.08), rgba(7, 13, 21, 0.34));
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.24));
 }
 
 .band-heading h2 {
@@ -604,6 +556,28 @@ dd {
 }
 
 /* 昼夜切换 */
+.dragon-glow {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    radial-gradient(ellipse 700px 450px at 62% 42%, rgba(255, 217, 138, 0.22), transparent 60%),
+    radial-gradient(ellipse 350px 250px at 58% 44%, rgba(255, 240, 200, 0.15), transparent 55%);
+  transition: opacity 800ms ease;
+}
+
+body.theme-night .dragon-glow {
+  opacity: 1;
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.65; }
+  50% { opacity: 1; }
+}
+
 .icon-sun,
 .icon-moon {
   transition: transform 500ms ease, opacity 500ms ease;

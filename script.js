@@ -16,7 +16,6 @@ const sceneCues = [
   {
     key: "awakening",
     at: 0,
-    bodyClass: "scene-awakening",
     cue: "觉醒",
     kicker: "云上之境",
     lead: "白龙掠过云海的瞬间，打开一座漂浮城堡的序章。",
@@ -28,7 +27,6 @@ const sceneCues = [
   {
     key: "citadel",
     at: 3.6,
-    bodyClass: "scene-citadel",
     cue: "城堡辉光",
     kicker: "日光城堡",
     lead: "当日光落在城堡尖顶，界面只保留必要信息，让画面自己发声。",
@@ -40,7 +38,6 @@ const sceneCues = [
   {
     key: "descent",
     at: 7.1,
-    bodyClass: "scene-descent",
     cue: "云中下降",
     kicker: "云中下降",
     lead: "云桥向深处延展，滚动内容像从雾气里浮出，保持空间连续。",
@@ -99,8 +96,6 @@ function cueForTime(time) {
 function applyCue(cue) {
   if (cue === activeCue) return;
   activeCue = cue;
-  document.body.classList.remove(...sceneCues.map((item) => item.bodyClass));
-  document.body.classList.add(cue.bodyClass);
   sceneKicker.textContent = cue.kicker;
   sceneLead.textContent = cue.lead;
   sceneTitle.textContent = cue.title;
